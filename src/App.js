@@ -1,6 +1,14 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
+import BookCase from "./pages/BookCase"
+//import Search from "./pages/Search"
+
+/* 
+TO DO:
+- Set up Reat Router
+
+*/
 
 class BooksApp extends React.Component {
   state = {
