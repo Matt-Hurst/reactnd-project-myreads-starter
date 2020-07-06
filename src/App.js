@@ -11,7 +11,9 @@ TO DO:
 - filter books based on shelf - map
 */
 class BooksApp extends React.Component {
-  state = []
+  state = {
+    books: []
+  }
 
   componentDidMount() {
     BooksAPI.getAll()

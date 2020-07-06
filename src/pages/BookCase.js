@@ -13,11 +13,11 @@ const BookCase = (props) => {
           <h1>MyReads</h1>
         </div>
         <div className="list-books-content">
-          <div>
+          { books && <div>
             <Shelf title='Currently Reading' books={books} name='currentlyReading'/>
             <Shelf title='Want to Read' books={books} name='wantToRead' />
             <Shelf title='Read' books={books} name='read' />
-          </div>
+          </div>}
         </div>
         <div className="open-search">
           <Link to='/search'>
