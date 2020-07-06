@@ -7,8 +7,9 @@ import { Route } from "react-router-dom"
 
 /* 
 TO DO:
-- pass books into BookCase
-- filter books based on shelf - map
+- check search books against state - if match update select option
+- add new book method
+- change book shelf method
 */
 class BooksApp extends React.Component {
   state = {
@@ -27,6 +28,13 @@ class BooksApp extends React.Component {
     })
   }
 
+  //ADD NEW BOOK
+  //addNewBook(newBook) 
+
+  
+
+  //CHANGE BOOK SHELF
+
   render() {
   // console.log(this.state)
 
@@ -37,7 +45,9 @@ class BooksApp extends React.Component {
             books = {this.state}
           />
         )} />
-        <Route path='/search' component={Search} />
+        <Route path='/search' render={() => (
+          <Search />
+        )} />
       </div>
     )
   }

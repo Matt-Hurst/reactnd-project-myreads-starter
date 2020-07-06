@@ -6,6 +6,11 @@ const Book = (props) => {
     const book = props.book
     const shelfName = props.shelfName
 
+
+    // const handleClick = (e) => { }
+        //option value to replace book.shelf value
+    
+
     return (
         <div className="book">
             <div className="book-top">

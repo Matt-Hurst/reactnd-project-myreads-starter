@@ -18,7 +18,6 @@ const Shelf = (props) => {
                             book = {book}
                             shelfName = {name}
                           />
-
                     </li>
                    )
                   )}
