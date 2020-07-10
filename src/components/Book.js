@@ -1,14 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 
 
 const Book = (props) => {
 
+    const [shelfName, setShelfName] = useState(props.shelfName)
     const book = props.book
-    const shelfName = props.shelfName
+    const updateBook = props.updateBook
 
+    // console.log(updateBook)
 
-    // const handleClick = (e) => { }
-        //option value to replace book.shelf value
+    const handleChange = (e) => { 
+        console.log(shelfName)
+        setShelfName(e.target.value)
+        console.log(shelfName)
+        updateBook(book, shelfName)
+
+    }
+ 
     
 
     return (
@@ -16,12 +24,12 @@ const Book = (props) => {
             <div className="book-top">
             <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
             <div className="book-shelf-changer">
-                <select>
-                <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading" selected={shelfName === 'currentlyReading' ? 'selected' : null}>Currently Reading</option>
-                <option value="wantToRead" selected={shelfName === 'wantToRead' ? 'selected' : null}>Want to Read</option>
-                <option value="read" selected={shelfName === 'read' ? 'selected' : null}>Read</option>
-                <option value="none" selected={!shelfName ? 'selected' : null}>None</option>
+                <select value={shelfName} onChange={handleChange}>
+                    <option value="move" disabled>Move to...</option>
+                    <option value="currentlyReading" >Currently Reading</option>
+                    <option value="wantToRead" >Want to Read</option>
+                    <option value="read" >Read</option>
+                    <option value="none" >None</option>
                 </select>
             </div>
             </div>

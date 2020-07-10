@@ -8,16 +8,35 @@ import Book from "../components/Book"
 const Search = (props) => {
     
     const [booksRetrieved, setBooksRetrieved] = useState([])
+    const userBooks = props.userBooks.books
+    // let userBooksIdArray = new Set()
 
     const handleChange = (event) => {
         const userQuery = event.target.value
-        // setQuery({query: userQuery})
-        BooksAPI.search(userQuery).then(res => {
-            setBooksRetrieved(res)
+        BooksAPI.search(userQuery).then(bookResults => {
+            if (bookResults) {
+                bookResults.forEach(bookResult => {
+                    bookResult.shelf = 'none'
+                }) 
+                setBooksRetrieved(bookResults)
+                console.log(booksRetrieved)
+            } else {
+                setBooksRetrieved([])
+            }
         })
     }
-    
-    
+
+    const checkBook = (book, userBooks) => {
+        userBooks.forEach(userBook => {
+            if (userBook.id === book.id) {
+               book.shelf = userBook.shelf
+            } 
+        })
+        return book.shelf
+    }
+
+
+    console.log(userBooks)
     return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -42,6 +61,7 @@ const Search = (props) => {
                         <li key={book.id}>
                             <Book 
                                 book = {book}
+                                shelfName = {checkBook(book, userBooks)}
                             />
                         </li>
                     ))) : null}

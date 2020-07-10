@@ -5,8 +5,9 @@ import Shelf from '../components/Shelf'
 const BookCase = (props) => {
     
     const books = props.books
+    const updateBook = props.updateBook
 
-    console.log(`books`, books)
+    console.log(props.updateBook)
     return (
         <div className="list-books">
         <div className="list-books-title">
@@ -14,9 +15,21 @@ const BookCase = (props) => {
         </div>
         <div className="list-books-content">
           { books && <div>
-            <Shelf title='Currently Reading' books={books} name='currentlyReading'/>
-            <Shelf title='Want to Read' books={books} name='wantToRead' />
-            <Shelf title='Read' books={books} name='read' />
+            <Shelf 
+              title='Currently Reading' 
+              books={books} 
+              name='currentlyReading'
+              updateBook={updateBook}/>
+            <Shelf 
+              title='Want to Read' 
+              books={books} 
+              name='wantToRead' 
+              updateBook={updateBook}/>
+            <Shelf 
+              title='Read' 
+              books={books} 
+              name='read' 
+              updateBook={updateBook}/>
           </div>}
         </div>
         <div className="open-search">
