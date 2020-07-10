@@ -5,18 +5,22 @@ import BookCase from "./pages/BookCase"
 import Search from "./pages/Search"
 import { Route } from "react-router-dom"
 
-/* 
-TO DO:
-- check search books against state - if match update select option
-- add new book method
-- change book shelf method
-*/
-class BooksApp extends React.Component {
-  state = {
-    books: []
-  }
 
+class BooksApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      books: []
+    }
+    this.updateBook = this.updateBook.bind(this)
+    this.addBook = this.addBook.bind(this)
+  } 
+  
   componentDidMount() {
+    this.getAllBooks()
+  }
+  
+  getAllBooks() {
     BooksAPI.getAll()
       .then((books) => {
         this.setState((currentState) => (
@@ -27,27 +31,29 @@ class BooksApp extends React.Component {
       )
     })
   }
-  
 
-  //ADD NEW BOOK
-  //addNewBook(newBook) 
-
-  //CHANGE BOOK SHELF
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf)
     .then(() => {
       this.setState((currentState) => ({
         books: currentState.books.filter((b) => 
-          b.id === book.id ? (book.shelf = shelf) : book
+          b.id === book.id ? (b.shelf = shelf) : b
         )
+      })) 
+    })
+  }
+
+  addBook (book, shelf) {
+    BooksAPI.update(book, shelf)
+    .then(() => {
+      book.shelf = shelf
+      this.setState((currentState) => ({
+        books: currentState.books.concat(book)
       }))
     })
   }
 
   render() {
-  console.log('state: ', this.state)
-  // console.log(this.updateBook)
-
     return(
       <div className="app">
         <Route exact path='/' render={() => (
@@ -59,6 +65,8 @@ class BooksApp extends React.Component {
         <Route path='/search' render={() => (
           <Search 
             userBooks = {this.state}
+            updateBook = {this.updateBook}
+            addBook = {this.addBook}
           />
         )} />
       </div>

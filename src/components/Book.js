@@ -1,19 +1,21 @@
-import React, { useState } from "react"
+import React from "react"
 
 
 const Book = (props) => {
 
-    const [shelfName, setShelfName] = useState(props.shelfName)
+    let shelfName = props.shelfName
     const book = props.book
-    const updateBook = props.updateBook
+    const { updateBook, addBook } = props
 
-    // console.log(updateBook)
 
     const handleChange = (e) => { 
-        console.log(shelfName)
-        setShelfName(e.target.value)
-        console.log(shelfName)
-        updateBook(book, shelfName)
+        shelfName = e.target.value    
+        if (book.shelf === "none"){
+            addBook(book, shelfName)
+
+        } else {
+            updateBook(book, shelfName)
+        }
 
     }
  

@@ -9,21 +9,25 @@ const Search = (props) => {
     
     const [booksRetrieved, setBooksRetrieved] = useState([])
     const userBooks = props.userBooks.books
-    // let userBooksIdArray = new Set()
+    const { updateBook, addBook } = props
 
     const handleChange = (event) => {
         const userQuery = event.target.value
-        BooksAPI.search(userQuery).then(bookResults => {
-            if (bookResults) {
-                bookResults.forEach(bookResult => {
-                    bookResult.shelf = 'none'
-                }) 
-                setBooksRetrieved(bookResults)
-                console.log(booksRetrieved)
-            } else {
-                setBooksRetrieved([])
-            }
-        })
+        if (userQuery.trim().length > 0) {
+            BooksAPI.search(userQuery).then(bookResults => {
+                if (!bookResults.error) {
+                    if (bookResults) {
+                        bookResults.forEach(bookResult => {
+                            bookResult.shelf = 'none'
+                        }) 
+                        setBooksRetrieved(bookResults)
+                    } else {
+                        setBooksRetrieved([])
+                    }
+                }
+            })
+        }
+        
     }
 
     const checkBook = (book, userBooks) => {
@@ -36,7 +40,6 @@ const Search = (props) => {
     }
 
 
-    console.log(userBooks)
     return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -62,6 +65,8 @@ const Search = (props) => {
                             <Book 
                                 book = {book}
                                 shelfName = {checkBook(book, userBooks)}
+                                updateBook = {updateBook}
+                                addBook = {addBook}
                             />
                         </li>
                     ))) : null}

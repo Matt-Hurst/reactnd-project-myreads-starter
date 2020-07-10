@@ -4,10 +4,8 @@ import Shelf from '../components/Shelf'
 
 const BookCase = (props) => {
     
-    const books = props.books
-    const updateBook = props.updateBook
-
-    console.log(props.updateBook)
+    const { books, updateBook } = props
+    
     return (
         <div className="list-books">
         <div className="list-books-title">
